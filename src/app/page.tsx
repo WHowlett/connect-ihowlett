@@ -2,14 +2,12 @@ import {
   ArrowUpRight,
   BriefcaseBusiness,
   Code2,
+  ExternalLink,
   FileText,
-  Github,
   Globe,
-  Linkedin,
   Mail,
   ShieldCheck,
   Terminal,
-  Twitter,
   Users,
 } from "lucide-react";
 
@@ -49,19 +47,19 @@ const socialLinks = [
     title: "LinkedIn",
     description: "Professional profile, updates, and networking.",
     href: "https://www.linkedin.com/in/wayne-howlett/",
-    icon: Linkedin,
+    icon: ExternalLink,
   },
   {
     title: "GitHub",
     description: "Code, portfolio projects, and technical work.",
     href: "https://github.com/WHowlett",
-    icon: Github,
+    icon: ExternalLink,
   },
   {
     title: "X / Twitter",
     description: "Cybersecurity learning notes and project updates.",
     href: "https://x.com/waynehowlettsec",
-    icon: Twitter,
+    icon: ExternalLink,
   },
   {
     title: "Facebook Page",
@@ -92,7 +90,6 @@ const roleTargets = [
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-slate-950 px-6 py-10 text-white">
-      {/* Background */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 bg-slate-950" />
         <div className="absolute -top-32 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
@@ -103,13 +100,11 @@ export default function Home() {
       </div>
 
       <section className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-4xl flex-col justify-center">
-        {/* Top badge */}
         <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-300">
           <ShieldCheck className="h-4 w-4" />
           Open to entry-level cybersecurity opportunities
         </div>
 
-        {/* Hero card */}
         <section className="mt-8 rounded-[2rem] border border-slate-800 bg-slate-900/70 p-6 shadow-2xl shadow-cyan-950/20 backdrop-blur md:p-10">
           <div className="text-center">
             <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl border border-cyan-400/30 bg-slate-950 shadow-2xl shadow-cyan-950/40">
@@ -136,7 +131,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Focus tags */}
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             {focusAreas.map((area) => (
               <span
@@ -148,7 +142,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Main links */}
           <div className="mt-10 grid gap-4 md:grid-cols-2">
             {primaryLinks.map((link) => {
               const Icon = link.icon;
@@ -187,7 +180,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Roles section */}
         <section className="mt-6 rounded-3xl border border-cyan-400/30 bg-cyan-400/10 p-6">
           <div className="flex items-start gap-4">
             <div className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-cyan-400/10 md:flex">
@@ -195,9 +187,7 @@ export default function Home() {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-white">
-                What I’m open to
-              </h2>
+              <h2 className="text-xl font-bold text-white">What I’m open to</h2>
 
               <p className="mt-3 leading-7 text-slate-300">
                 I’m looking for opportunities where I can contribute, keep
@@ -218,13 +208,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Social links */}
         <section className="mt-6 rounded-3xl border border-slate-800 bg-slate-900/70 p-6">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-xl font-bold text-white">
-                Professional links
-              </h2>
+              <h2 className="text-xl font-bold text-white">Professional links</h2>
               <p className="mt-2 text-sm leading-6 text-slate-400">
                 Follow, connect, or review my technical work across platforms.
               </p>
@@ -266,7 +253,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Direct email */}
         <section className="mt-6 rounded-3xl border border-slate-800 bg-slate-900/70 p-6 text-center">
           <h2 className="text-xl font-bold text-white">Prefer email?</h2>
 
@@ -284,7 +270,6 @@ export default function Home() {
           </a>
         </section>
 
-        {/* Footer */}
         <footer className="py-8 text-center text-xs text-slate-500">
           <p>© 2026 Wayne Howlett. Cybersecurity link hub.</p>
           <p className="mt-2">
