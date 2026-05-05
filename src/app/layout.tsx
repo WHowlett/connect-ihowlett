@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Wayne Howlett Cybersecurity | Connect",
   description:
-    "Connect with Wayne Howlett: cybersecurity portfolio, resume, projects, LinkedIn, GitHub, X, Facebook page, and direct email.",
+    "Quick access to Wayne Howlett’s cybersecurity portfolio, projects, resume, and contact.",
   keywords: [
     "Wayne Howlett",
     "cybersecurity",
@@ -41,14 +41,14 @@ export const metadata: Metadata = {
     url: siteUrl,
     title: "Wayne Howlett Cybersecurity | Connect",
     description:
-      "Quick access to Wayne Howlett's cybersecurity portfolio, projects, resume, professional profiles, and contact information.",
-    siteName: "Wayne Howlett Cybersecurity Connect",
+      "Quick access to Wayne Howlett’s cybersecurity portfolio, projects, resume, and contact.",
+    siteName: "Wayne Howlett Cybersecurity",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Wayne Howlett Cybersecurity Connect",
+        alt: "Wayne Howlett Cybersecurity Engineer Portfolio and Contact",
       },
     ],
   },
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Wayne Howlett Cybersecurity | Connect",
     description:
-      "Cybersecurity portfolio, projects, resume, professional links, and contact information.",
+      "Cybersecurity portfolio, projects, resume, and contact for Wayne Howlett.",
     images: ["/og-image.png"],
   },
 };
