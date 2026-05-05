@@ -121,6 +121,7 @@ body::after {
 
 .depth-card {
   position: relative;
+  isolation: isolate;
   transform-style: preserve-3d;
   box-shadow:
     0 22px 55px rgba(0, 0, 0, 0.28),
@@ -131,14 +132,11 @@ body::after {
   content: "";
   position: absolute;
   inset: 1px;
+  z-index: 0;
   border-radius: inherit;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), transparent 34%, rgba(34, 211, 238, 0.04));
   opacity: 0.72;
   pointer-events: none;
-}
-
-.depth-card > * {
-  position: relative;
 }
 
 .tap-lift {
