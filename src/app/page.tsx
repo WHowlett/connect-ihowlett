@@ -54,6 +54,15 @@ const focusAreas = [
   "API Security",
 ];
 
+const openRoles = [
+  "SOC Analyst",
+  "Security Analyst",
+  "Junior Security Engineer",
+  "Detection Support",
+  "Cloud Security Support",
+  "API Security Support",
+];
+
 export default function Home() {
   const handleShare = async () => {
     const url = "https://connect.ihowlett.com";
@@ -99,7 +108,12 @@ export default function Home() {
 
         <section className="relative overflow-hidden rounded-[2rem] border border-cyan-200/15 bg-slate-900/68 p-6 text-center shadow-2xl shadow-cyan-950/25 backdrop-blur-xl">
           <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
-          <div className="absolute -top-20 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-cyan-200/18 blur-2xl" />
+          <div className="absolute -top-24 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-cyan-200/24 blur-2xl" />
+          <div className="absolute left-1/2 top-4 h-32 w-32 -translate-x-1/2 rounded-full bg-white/15 blur-2xl" />
+
+          <div className="relative mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl border border-cyan-200/30 bg-slate-950/45 p-2 shadow-2xl shadow-cyan-950/40 ring-4 ring-cyan-200/10 backdrop-blur">
+            <img src="/icon.png" alt="Wayne Howlett Cybersecurity logo" className="max-h-full max-w-full object-contain" />
+          </div>
 
           <div className="relative mx-auto h-28 w-28 overflow-hidden rounded-3xl border border-cyan-200/50 bg-slate-950 shadow-2xl shadow-cyan-950/40 ring-4 ring-cyan-200/15">
             <img src="/profiletemp.jpeg" alt="Wayne Howlett" className="h-full w-full object-cover" />
@@ -165,9 +179,13 @@ export default function Home() {
 
         <section className="mt-5 rounded-3xl border border-cyan-200/30 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Open To</p>
-          <p className="mt-2 text-sm leading-6 text-slate-200">
-            SOC Analyst, Security Analyst, Junior Security Engineer, detection support, cloud security support, and API security support roles.
-          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {openRoles.map((role) => (
+              <span key={role} className="rounded-full border border-cyan-200/25 bg-slate-950/45 px-3 py-1.5 text-xs font-semibold text-slate-100 shadow-sm shadow-black/10">
+                {role}
+              </span>
+            ))}
+          </div>
         </section>
 
         <section className="mt-5 grid grid-cols-2 gap-3">
