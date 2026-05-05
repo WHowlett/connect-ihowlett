@@ -1,13 +1,12 @@
+"use client";
+
 import {
   ArrowUpRight,
   BriefcaseBusiness,
-  Code2,
   ExternalLink,
   FileText,
   Globe,
   Mail,
-  ShieldCheck,
-  Terminal,
   Users,
 } from "lucide-react";
 
@@ -63,38 +62,50 @@ const socialLinks = [
 
 export default function Home() {
   const handleShare = async () => {
+    const shareUrl = "https://connect.ihowlett.com";
+
     if (navigator.share) {
       await navigator.share({
         title: "Wayne Howlett Cybersecurity",
-        url: "https://connect.ihowlett.com",
+        text: "Connect with Wayne Howlett Cybersecurity.",
+        url: shareUrl,
       });
-    } else {
-      navigator.clipboard.writeText("https://connect.ihowlett.com");
-      alert("Link copied to clipboard");
+      return;
     }
+
+    await navigator.clipboard.writeText(shareUrl);
+    alert("Link copied to clipboard");
   };
 
   return (
     <main className="relative min-h-screen bg-slate-950 px-5 py-8 text-white">
       <section className="mx-auto max-w-md text-center">
-        {/* Headshot */}
         <div className="mx-auto h-28 w-28 overflow-hidden rounded-3xl border border-cyan-400/30 shadow-lg">
-          <img src="/profiletemp.jpeg" alt="Wayne Howlett" className="h-full w-full object-cover" />
+          <img
+            src="/profiletemp.jpeg"
+            alt="Wayne Howlett"
+            className="h-full w-full object-cover"
+          />
         </div>
 
         <h1 className="mt-5 text-2xl font-bold">Wayne Howlett</h1>
-        <p className="text-cyan-400 text-sm">Cybersecurity</p>
+        <p className="text-sm text-cyan-400">Cybersecurity</p>
 
-        <p className="mt-4 text-sm text-slate-300">
+        <p className="mt-4 text-sm leading-6 text-slate-300">
           Security Engineering • Detection Engineering • Wazuh SIEM • Cloud & API Security
         </p>
 
-        {/* CTA buttons */}
         <div className="mt-6 grid gap-3">
           {primaryLinks.map((link) => {
             const Icon = link.icon;
             return (
-              <a key={link.title} href={link.href} target="_blank" className="flex items-center justify-between rounded-xl bg-slate-900 px-4 py-3 hover:bg-slate-800">
+              <a
+                key={link.title}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between rounded-xl bg-slate-900 px-4 py-3 text-left transition hover:bg-slate-800"
+              >
                 <div className="flex items-center gap-3">
                   <Icon className="h-5 w-5 text-cyan-400" />
                   <span>{link.title}</span>
@@ -105,25 +116,37 @@ export default function Home() {
           })}
         </div>
 
-        {/* Social row */}
         <div className="mt-6 flex justify-center gap-4">
           {socialLinks.map((link) => {
             const Icon = link.icon;
             return (
-              <a key={link.title} href={link.href} target="_blank" className="p-3 rounded-lg bg-slate-900 hover:bg-slate-800">
+              <a
+                key={link.title}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.title}
+                className="rounded-lg bg-slate-900 p-3 transition hover:bg-slate-800"
+              >
                 <Icon className="h-5 w-5 text-cyan-400" />
               </a>
             );
           })}
         </div>
 
-        {/* Share + vCard */}
         <div className="mt-6 flex gap-3">
-          <button onClick={handleShare} className="flex-1 rounded-xl bg-cyan-400 py-3 text-black font-semibold">
+          <button
+            type="button"
+            onClick={handleShare}
+            className="flex-1 rounded-xl bg-cyan-400 py-3 font-semibold text-black transition hover:bg-cyan-300"
+          >
             Share
           </button>
 
-          <a href="/wayne-howlett.vcf" className="flex-1 rounded-xl border border-cyan-400 py-3 text-cyan-400 text-center font-semibold">
+          <a
+            href="/wayne-howlett.vcf"
+            className="flex-1 rounded-xl border border-cyan-400 py-3 text-center font-semibold text-cyan-400 transition hover:bg-cyan-400/10"
+          >
             Save Contact
           </a>
         </div>
