@@ -126,6 +126,24 @@ export default function Home() {
   const [selectedRole, setSelectedRole] = useState(openRoles[0]);
   const [shareMessage, setShareMessage] = useState("");
   const [recruiterMode, setRecruiterMode] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const updateProgress = () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      setScrollProgress(Math.min(1, Math.max(0, progress)));
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+
+    return () => {
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", updateProgress);
+    };
+  }, []);
 
   const handleShare = async () => {
     const url = "https://connect.ihowlett.com";
@@ -142,11 +160,24 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#061927] px-5 py-5 text-white">
+    <main className="relative min-h-screen overflow-hidden bg-[#061927] px-5 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] text-white">
+      <div className="fixed left-0 right-0 top-0 z-50 h-1 bg-slate-950/50 backdrop-blur">
+        <div
+          className="h-full bg-gradient-to-r from-cyan-300 via-sky-200 to-cyan-400 shadow-[0_0_18px_rgba(103,232,249,0.8)] transition-transform duration-150"
+          style={{ transform: `scaleX(${scrollProgress})`, transformOrigin: "left" }}
+        />
+      </div>
+
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#0b2a3a] via-[#071826] to-[#020617]" />
-        <div className="absolute -top-40 left-1/2 h-[760px] w-[760px] -translate-x-1/2 rounded-full bg-cyan-300/35 blur-3xl pulse-glow" />
-        <div className="absolute -top-20 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-white/18 blur-3xl pulse-glow" />
+        <div
+          className="absolute -top-40 left-1/2 h-[760px] w-[760px] -translate-x-1/2 rounded-full bg-cyan-300/35 blur-3xl pulse-glow"
+          style={{ transform: `translateX(-50%) translateY(${scrollProgress * 24}px) scale(${1 + scrollProgress * 0.05})` }}
+        />
+        <div
+          className="absolute -top-20 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-white/18 blur-3xl pulse-glow"
+          style={{ transform: `translateX(-50%) translateY(${scrollProgress * 40}px)` }}
+        />
         <div className="absolute top-20 left-1/2 h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-sky-200/20 blur-2xl" />
         <div className="absolute top-1/3 -left-32 h-[360px] w-[360px] rounded-full bg-cyan-500/16 blur-3xl" />
         <div className="absolute bottom-0 right-0 h-[360px] w-[360px] rounded-full bg-blue-500/14 blur-3xl" />
@@ -156,7 +187,7 @@ export default function Home() {
       </div>
 
       <section className="mx-auto max-w-md">
-        <header className="reveal-up delay-1 mb-5 rounded-2xl border border-cyan-200/15 bg-slate-900/55 p-4 shadow-xl shadow-black/20 backdrop-blur-xl">
+        <header className="reveal-up delay-1 mb-5 rounded-2xl border border-cyan-200/15 bg-slate-900/55 p-4 shadow-xl shadow-black/20 backdrop-blur-xl depth-card">
           <div className="flex items-start justify-between gap-3">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">Connect Hub</p>
@@ -195,7 +226,7 @@ export default function Home() {
 
         {recruiterMode && (
           <ScrollReveal className="mb-5">
-            <section className="rounded-3xl border border-cyan-200/30 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl">
+            <section className="rounded-3xl border border-cyan-200/30 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl depth-card">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Recruiter Snapshot</p>
               <p className="mt-3 text-sm leading-6 text-slate-200">
                 Early-career cybersecurity candidate focused on hands-on security engineering, SIEM detection practice, cloud/API security support, and clear technical documentation.
@@ -211,7 +242,7 @@ export default function Home() {
           </ScrollReveal>
         )}
 
-        <section className="reveal-up delay-2 relative overflow-hidden rounded-[2rem] border border-cyan-200/15 bg-slate-900/68 p-6 text-center shadow-2xl shadow-cyan-950/25 backdrop-blur-xl">
+        <section className="reveal-up delay-2 relative overflow-hidden rounded-[2rem] border border-cyan-200/15 bg-slate-900/68 p-6 text-center shadow-2xl shadow-cyan-950/25 backdrop-blur-xl depth-card">
           <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
           <div className="absolute -top-24 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-cyan-200/24 blur-2xl pulse-glow" />
           <div className="absolute left-1/2 top-4 h-32 w-32 -translate-x-1/2 rounded-full bg-white/15 blur-2xl pulse-glow" />
@@ -256,7 +287,7 @@ export default function Home() {
         </ScrollReveal>
 
         <ScrollReveal className="mt-5">
-          <section className="rounded-3xl border border-cyan-200/10 bg-slate-900/62 p-5 shadow-lg shadow-black/10 backdrop-blur-xl tap-lift">
+          <section className="rounded-3xl border border-cyan-200/10 bg-slate-900/62 p-5 shadow-lg shadow-black/10 backdrop-blur-xl tap-lift depth-card">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Focus</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {focusAreas.map((f) => <span key={f} className="rounded-full border border-cyan-200/12 bg-slate-950/60 px-3 py-1.5 text-xs font-semibold text-slate-200">{f}</span>)}
@@ -266,7 +297,7 @@ export default function Home() {
 
         {recruiterMode && (
           <ScrollReveal className="mt-5">
-            <section className="rounded-3xl border border-cyan-200/20 bg-slate-900/62 p-5 shadow-lg shadow-black/10 backdrop-blur-xl">
+            <section className="rounded-3xl border border-cyan-200/20 bg-slate-900/62 p-5 shadow-lg shadow-black/10 backdrop-blur-xl depth-card">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Featured Proof</p>
               <h2 className="mt-3 text-lg font-bold text-slate-100">Wazuh Detection Engineering</h2>
               <p className="mt-2 text-sm leading-6 text-slate-300">
@@ -280,7 +311,7 @@ export default function Home() {
         )}
 
         <ScrollReveal className="mt-5">
-          <section className="rounded-3xl border border-cyan-200/30 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl">
+          <section className="rounded-3xl border border-cyan-200/30 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl depth-card">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Open To</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {openRoles.map((role) => {
@@ -301,7 +332,7 @@ export default function Home() {
 
         {recruiterMode && (
           <ScrollReveal className="mt-5">
-            <section className="rounded-3xl border border-cyan-200/20 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl">
+            <section className="rounded-3xl border border-cyan-200/20 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl depth-card">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Fast Recruiter Path</p>
               <div className="mt-3 grid gap-3">
                 <a href="https://www.ihowlett.com/resume" target="_blank" rel="noopener noreferrer" data-link="recruiter-resume" className="tap-lift light-sweep rounded-2xl bg-cyan-300 px-4 py-3 text-center text-sm font-bold text-slate-950">Review Resume</a>
@@ -312,7 +343,7 @@ export default function Home() {
         )}
 
         <ScrollReveal className="mt-5 grid grid-cols-2 gap-3">
-          {socialLinks.map((s) => <a key={s.title} href={s.href} target="_blank" rel="noopener noreferrer" data-link={s.tracking} className="tap-lift light-sweep rounded-2xl border border-cyan-200/10 bg-slate-900/68 p-3 text-center text-sm font-semibold text-slate-100 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-200">{s.title}</a>)}
+          {socialLinks.map((s) => <a key={s.title} href={s.href} target="_blank" rel="noopener noreferrer" data-link={s.tracking} className="tap-lift light-sweep rounded-2xl border border-cyan-200/10 bg-slate-900/68 p-3 text-center text-sm font-semibold text-slate-100 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-200 depth-card">{s.title}</a>)}
         </ScrollReveal>
 
         <ScrollReveal className="mt-5 grid grid-cols-2 gap-3">
@@ -327,13 +358,13 @@ export default function Home() {
         {shareMessage && <p className="reveal-up mt-3 text-center text-xs font-semibold text-cyan-200">{shareMessage}</p>}
 
         <ScrollReveal className="mt-5">
-          <a href="mailto:wayne@ihowlett.com" data-link="email" className="tap-lift flex items-center justify-center gap-2 rounded-2xl border border-cyan-200/10 bg-slate-900/62 px-4 py-4 text-sm font-semibold text-slate-200 shadow-lg shadow-black/10 backdrop-blur-xl transition hover:border-cyan-300 hover:text-cyan-200">
+          <a href="mailto:wayne@ihowlett.com" data-link="email" className="tap-lift flex items-center justify-center gap-2 rounded-2xl border border-cyan-200/10 bg-slate-900/62 px-4 py-4 text-sm font-semibold text-slate-200 shadow-lg shadow-black/10 backdrop-blur-xl transition hover:border-cyan-300 hover:text-cyan-200 depth-card">
             <Mail className="h-4 w-4" /> wayne@ihowlett.com
           </a>
         </ScrollReveal>
 
         <ScrollReveal className="mt-6">
-          <footer className="rounded-2xl border border-cyan-200/10 bg-slate-900/50 px-4 py-5 text-center text-xs leading-5 text-slate-400 shadow-lg shadow-black/10 backdrop-blur-xl">
+          <footer className="rounded-2xl border border-cyan-200/10 bg-slate-900/50 px-4 py-5 text-center text-xs leading-5 text-slate-400 shadow-lg shadow-black/10 backdrop-blur-xl depth-card">
             <p className="font-semibold text-slate-200">Wayne Howlett Cybersecurity</p>
             <p className="mt-1">Built for QR scans, quick sharing, and professional connection.</p>
             <p className="mt-2 text-[11px] text-slate-500">© 2026 Wayne Howlett</p>
