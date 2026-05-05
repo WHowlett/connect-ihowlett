@@ -1,0 +1,14 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Howlett;Wayne;;;
+FN:Wayne Howlett
+ORG:Wayne Howlett Cybersecurity
+TITLE:Early-career Cybersecurity Professional
+EMAIL;TYPE=INTERNET:wayne@ihowlett.com
+URL:https://www.ihowlett.com
+URL:https://connect.ihowlett.com
+URL:https://www.linkedin.com/in/wayne-howlett/
+URL:https://github.com/WHowlett
+URL:https://x.com/waynehowlettsec
+NOTE:Cybersecurity portfolio focused on security engineering, detection engineering, Wazuh SIEM, cloud security, API security, and risk-based design.
+END:VCARD
