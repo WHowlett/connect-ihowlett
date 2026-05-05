@@ -204,6 +204,19 @@ export default function Home() {
           </div>
         </section>
 
+        {recruiterMode && (
+          <section className="reveal-up delay-5 mt-5 rounded-3xl border border-cyan-200/20 bg-slate-900/62 p-5 shadow-lg shadow-black/10 backdrop-blur-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Featured Proof</p>
+            <h2 className="mt-3 text-lg font-bold text-slate-100">Wazuh Detection Engineering</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-300">
+              Built and validated a custom Wazuh detection workflow for SSH brute-force activity using Kali Linux, Hydra, Linux logs, and rule tuning.
+            </p>
+            <a href="https://www.ihowlett.com/projects/wazuh-detection-engineering" target="_blank" rel="noopener noreferrer" data-link="featured-project" className="tap-lift light-sweep mt-4 flex items-center justify-center gap-2 rounded-2xl border border-cyan-300 bg-cyan-300 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-200">
+              View Featured Project <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </section>
+        )}
+
         <section className="reveal-up delay-5 mt-5 rounded-3xl border border-cyan-200/30 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Open To</p>
           <div className="mt-3 flex flex-wrap gap-2">
@@ -221,6 +234,16 @@ export default function Home() {
             <p className="mt-2 text-sm leading-6 text-slate-200">{selectedRole.detail}</p>
           </div>
         </section>
+
+        {recruiterMode && (
+          <section className="reveal-up delay-6 mt-5 rounded-3xl border border-cyan-200/20 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Fast Recruiter Path</p>
+            <div className="mt-3 grid gap-3">
+              <a href="https://www.ihowlett.com/resume" target="_blank" rel="noopener noreferrer" data-link="recruiter-resume" className="tap-lift light-sweep rounded-2xl bg-cyan-300 px-4 py-3 text-center text-sm font-bold text-slate-950">Review Resume</a>
+              <a href="https://www.ihowlett.com/contact" target="_blank" rel="noopener noreferrer" data-link="recruiter-contact" className="tap-lift light-sweep rounded-2xl border border-cyan-300 px-4 py-3 text-center text-sm font-bold text-cyan-200">Contact Wayne</a>
+            </div>
+          </section>
+        )}
 
         <section className="reveal-up delay-6 mt-5 grid grid-cols-2 gap-3">
           {socialLinks.map((s) => <a key={s.title} href={s.href} target="_blank" rel="noopener noreferrer" data-link={s.tracking} className="tap-lift light-sweep rounded-2xl border border-cyan-200/10 bg-slate-900/68 p-3 text-center text-sm font-semibold text-slate-100 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-200">{s.title}</a>)}
