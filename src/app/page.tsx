@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   ArrowUpRight,
   BriefcaseBusiness,
@@ -18,32 +19,36 @@ const primaryLinks = [
     href: "https://www.ihowlett.com",
     icon: Globe,
     primary: true,
+    tracking: "portfolio",
   },
   {
     title: "Resume",
     description: "Cybersecurity resume and experience.",
     href: "https://www.ihowlett.com/resume",
     icon: FileText,
+    tracking: "resume",
   },
   {
     title: "Projects",
     description: "Hands-on labs and detection engineering work.",
     href: "https://www.ihowlett.com/projects",
     icon: BriefcaseBusiness,
+    tracking: "projects",
   },
   {
     title: "Contact",
     description: "Reach out directly for opportunities.",
     href: "https://www.ihowlett.com/contact",
     icon: Mail,
+    tracking: "contact",
   },
 ];
 
 const socialLinks = [
-  { title: "LinkedIn", href: "https://www.linkedin.com/in/wayne-howlett/" },
-  { title: "GitHub", href: "https://github.com/WHowlett" },
-  { title: "X", href: "https://x.com/waynehowlettsec" },
-  { title: "Facebook", href: "https://facebook.com/whowlettsecurity" },
+  { title: "LinkedIn", href: "https://www.linkedin.com/in/wayne-howlett/", tracking: "linkedin" },
+  { title: "GitHub", href: "https://github.com/WHowlett", tracking: "github" },
+  { title: "X", href: "https://x.com/waynehowlettsec", tracking: "x" },
+  { title: "Facebook", href: "https://facebook.com/whowlettsecurity", tracking: "facebook" },
 ];
 
 const focusAreas = [
@@ -55,23 +60,48 @@ const focusAreas = [
 ];
 
 const openRoles = [
-  "SOC Analyst",
-  "Security Analyst",
-  "Junior Security Engineer",
-  "Detection Support",
-  "Cloud Security Support",
-  "API Security Support",
+  {
+    title: "SOC Analyst",
+    detail: "A strong fit for alert review, log analysis, triage, SIEM workflows, and hands-on investigation support.",
+  },
+  {
+    title: "Security Analyst",
+    detail: "A strong fit for risk review, documentation, security operations support, vulnerability awareness, and evidence-based analysis.",
+  },
+  {
+    title: "Junior Security Engineer",
+    detail: "A strong fit for building, testing, documenting, and improving security controls under guidance from experienced teams.",
+  },
+  {
+    title: "Detection Support",
+    detail: "A strong fit for Wazuh SIEM work, rule testing, alert validation, log review, and detection-focused lab projects.",
+  },
+  {
+    title: "Cloud Security Support",
+    detail: "A strong fit for cloud security learning, secure configuration support, access control review, and cloud-focused documentation.",
+  },
+  {
+    title: "API Security Support",
+    detail: "A strong fit for API security learning, endpoint review, authentication awareness, and secure application thinking.",
+  },
 ];
 
 export default function Home() {
+  const [selectedRole, setSelectedRole] = useState(openRoles[0]);
+  const [shareMessage, setShareMessage] = useState("");
+
   const handleShare = async () => {
     const url = "https://connect.ihowlett.com";
+
     if (navigator.share) {
       await navigator.share({ title: "Wayne Howlett Cybersecurity", url });
+      setShareMessage("Shared successfully");
     } else {
       await navigator.clipboard.writeText(url);
-      alert("Link copied");
+      setShareMessage("Link copied to clipboard");
     }
+
+    window.setTimeout(() => setShareMessage(""), 2500);
   };
 
   return (
@@ -91,17 +121,10 @@ export default function Home() {
       <section className="mx-auto max-w-md">
         <header className="reveal-up delay-1 mb-5 flex items-center justify-between rounded-2xl border border-cyan-200/15 bg-slate-900/55 px-4 py-3 shadow-xl shadow-black/20 backdrop-blur-xl tap-lift">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">
-              Connect Hub
-            </p>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">Connect Hub</p>
             <p className="mt-1 text-xs text-slate-300">Wayne Howlett Cybersecurity</p>
           </div>
-          <a
-            href="https://www.ihowlett.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-cyan-200/40 bg-cyan-200/15 px-3 py-1.5 text-xs font-semibold text-cyan-100 transition hover:bg-cyan-300 hover:text-slate-950"
-          >
+          <a href="https://www.ihowlett.com" target="_blank" rel="noopener noreferrer" data-link="portfolio-header" className="rounded-full border border-cyan-200/40 bg-cyan-200/15 px-3 py-1.5 text-xs font-semibold text-cyan-100 transition hover:bg-cyan-300 hover:text-slate-950">
             Portfolio
           </a>
         </header>
@@ -124,33 +147,17 @@ export default function Home() {
           </div>
 
           <h1 className="relative mt-4 text-3xl font-bold tracking-tight">Wayne Howlett</h1>
-          <p className="relative mt-1 text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300">
-            Cybersecurity
-          </p>
+          <p className="relative mt-1 text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300">Cybersecurity</p>
 
-          <p className="relative mt-4 text-sm leading-6 text-slate-200">
-            Security Engineering • Detection Engineering • Wazuh SIEM • Cloud & API Security
-          </p>
-          <p className="relative mt-3 text-sm leading-6 text-slate-300">
-            Building practical projects, documenting evidence, and growing toward deeper security architecture skills.
-          </p>
+          <p className="relative mt-4 text-sm leading-6 text-slate-200">Security Engineering • Detection Engineering • Wazuh SIEM • Cloud & API Security</p>
+          <p className="relative mt-3 text-sm leading-6 text-slate-300">Building practical projects, documenting evidence, and growing toward deeper security architecture skills.</p>
         </section>
 
         <section className="reveal-up delay-3 mt-5 grid gap-3">
           {primaryLinks.map((link) => {
             const Icon = link.icon;
             return (
-              <a
-                key={link.title}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`group tap-lift light-sweep flex items-center justify-between rounded-2xl border p-4 text-left shadow-lg shadow-black/10 transition hover:-translate-y-0.5 ${
-                  link.primary
-                    ? "border-cyan-200/70 bg-cyan-300 text-slate-950 shadow-cyan-950/40 hover:bg-cyan-200"
-                    : "border-cyan-200/10 bg-slate-900/68 backdrop-blur hover:border-cyan-300 hover:bg-slate-900/85"
-                }`}
-              >
+              <a key={link.title} href={link.href} target="_blank" rel="noopener noreferrer" data-link={link.tracking} className={`group tap-lift light-sweep flex items-center justify-between rounded-2xl border p-4 text-left shadow-lg shadow-black/10 transition hover:-translate-y-0.5 ${link.primary ? "border-cyan-200/70 bg-cyan-300 text-slate-950 shadow-cyan-950/40 hover:bg-cyan-200" : "border-cyan-200/10 bg-slate-900/68 backdrop-blur hover:border-cyan-300 hover:bg-slate-900/85"}`}>
                 <div className="flex items-center gap-3">
                   <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${link.primary ? "bg-slate-950/10" : "bg-cyan-300/10"}`}>
                     <Icon className={`h-5 w-5 ${link.primary ? "text-slate-950" : "text-cyan-300"}`} />
@@ -169,49 +176,44 @@ export default function Home() {
         <section className="reveal-up delay-4 mt-5 rounded-3xl border border-cyan-200/10 bg-slate-900/62 p-5 shadow-lg shadow-black/10 backdrop-blur-xl tap-lift">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Focus</p>
           <div className="mt-3 flex flex-wrap gap-2">
-            {focusAreas.map((f) => (
-              <span key={f} className="rounded-full border border-cyan-200/12 bg-slate-950/60 px-3 py-1.5 text-xs font-semibold text-slate-200">
-                {f}
-              </span>
-            ))}
+            {focusAreas.map((f) => <span key={f} className="rounded-full border border-cyan-200/12 bg-slate-950/60 px-3 py-1.5 text-xs font-semibold text-slate-200">{f}</span>)}
           </div>
         </section>
 
-        <section className="reveal-up delay-5 mt-5 rounded-3xl border border-cyan-200/30 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl tap-lift">
+        <section className="reveal-up delay-5 mt-5 rounded-3xl border border-cyan-200/30 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Open To</p>
           <div className="mt-3 flex flex-wrap gap-2">
-            {openRoles.map((role) => (
-              <span key={role} className="rounded-full border border-cyan-200/25 bg-slate-950/45 px-3 py-1.5 text-xs font-semibold text-slate-100 shadow-sm shadow-black/10">
-                {role}
-              </span>
-            ))}
+            {openRoles.map((role) => {
+              const isSelected = selectedRole.title === role.title;
+              return (
+                <button key={role.title} type="button" onClick={() => setSelectedRole(role)} data-role={role.title} className={`tap-lift rounded-full border px-3 py-1.5 text-xs font-semibold shadow-sm shadow-black/10 transition ${isSelected ? "border-cyan-200 bg-cyan-200 text-slate-950" : "border-cyan-200/25 bg-slate-950/45 text-slate-100 hover:border-cyan-200 hover:bg-cyan-200/10"}`}>
+                  {role.title}
+                </button>
+              );
+            })}
+          </div>
+          <div className="mt-4 rounded-2xl border border-cyan-200/15 bg-slate-950/45 p-4 text-left">
+            <p className="text-sm font-bold text-cyan-200">{selectedRole.title}</p>
+            <p className="mt-2 text-sm leading-6 text-slate-200">{selectedRole.detail}</p>
           </div>
         </section>
 
         <section className="reveal-up delay-6 mt-5 grid grid-cols-2 gap-3">
-          {socialLinks.map((s) => (
-            <a
-              key={s.title}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="tap-lift light-sweep rounded-2xl border border-cyan-200/10 bg-slate-900/68 p-3 text-center text-sm font-semibold text-slate-100 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-200"
-            >
-              {s.title}
-            </a>
-          ))}
+          {socialLinks.map((s) => <a key={s.title} href={s.href} target="_blank" rel="noopener noreferrer" data-link={s.tracking} className="tap-lift light-sweep rounded-2xl border border-cyan-200/10 bg-slate-900/68 p-3 text-center text-sm font-semibold text-slate-100 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-200">{s.title}</a>)}
         </section>
 
         <section className="reveal-up delay-7 mt-5 grid grid-cols-2 gap-3">
-          <button onClick={handleShare} className="tap-lift light-sweep flex items-center justify-center gap-2 rounded-2xl bg-cyan-300 py-3 font-bold text-slate-950 shadow-lg shadow-cyan-950/40 transition hover:-translate-y-0.5 hover:bg-cyan-200">
+          <button onClick={handleShare} data-link="share" className="tap-lift light-sweep flex items-center justify-center gap-2 rounded-2xl bg-cyan-300 py-3 font-bold text-slate-950 shadow-lg shadow-cyan-950/40 transition hover:-translate-y-0.5 hover:bg-cyan-200">
             <Share2 className="h-4 w-4" /> Share
           </button>
-          <a href="/wayne-howlett.vcf" className="tap-lift light-sweep flex items-center justify-center gap-2 rounded-2xl border border-cyan-300 py-3 text-center font-bold text-cyan-200 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:bg-cyan-200/10">
+          <a href="/wayne-howlett.vcf" data-link="save-contact" className="tap-lift light-sweep flex items-center justify-center gap-2 rounded-2xl border border-cyan-300 py-3 text-center font-bold text-cyan-200 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:bg-cyan-200/10">
             <Download className="h-4 w-4" /> Save
           </a>
         </section>
 
-        <a href="mailto:wayne@ihowlett.com" className="reveal-up delay-7 tap-lift mt-5 flex items-center justify-center gap-2 rounded-2xl border border-cyan-200/10 bg-slate-900/62 px-4 py-4 text-sm font-semibold text-slate-200 shadow-lg shadow-black/10 backdrop-blur-xl transition hover:border-cyan-300 hover:text-cyan-200">
+        {shareMessage && <p className="reveal-up mt-3 text-center text-xs font-semibold text-cyan-200">{shareMessage}</p>}
+
+        <a href="mailto:wayne@ihowlett.com" data-link="email" className="reveal-up delay-7 tap-lift mt-5 flex items-center justify-center gap-2 rounded-2xl border border-cyan-200/10 bg-slate-900/62 px-4 py-4 text-sm font-semibold text-slate-200 shadow-lg shadow-black/10 backdrop-blur-xl transition hover:border-cyan-300 hover:text-cyan-200">
           <Mail className="h-4 w-4" /> wayne@ihowlett.com
         </a>
 
