@@ -59,6 +59,13 @@ const focusAreas = [
   "API Security",
 ];
 
+const recruiterSignals = [
+  "Hands-on lab builder",
+  "Evidence-based documentation",
+  "SIEM and log analysis practice",
+  "Clear written communication",
+];
+
 const openRoles = [
   {
     title: "SOC Analyst",
@@ -89,6 +96,7 @@ const openRoles = [
 export default function Home() {
   const [selectedRole, setSelectedRole] = useState(openRoles[0]);
   const [shareMessage, setShareMessage] = useState("");
+  const [recruiterMode, setRecruiterMode] = useState(false);
 
   const handleShare = async () => {
     const url = "https://connect.ihowlett.com";
@@ -124,10 +132,26 @@ export default function Home() {
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">Connect Hub</p>
             <p className="mt-1 text-xs text-slate-300">Wayne Howlett Cybersecurity</p>
           </div>
-          <a href="https://www.ihowlett.com" target="_blank" rel="noopener noreferrer" data-link="portfolio-header" className="rounded-full border border-cyan-200/40 bg-cyan-200/15 px-3 py-1.5 text-xs font-semibold text-cyan-100 transition hover:bg-cyan-300 hover:text-slate-950">
-            Portfolio
-          </a>
+          <button onClick={() => setRecruiterMode(!recruiterMode)} className="rounded-full border border-cyan-200/40 bg-cyan-200/15 px-3 py-1.5 text-xs font-semibold text-cyan-100 transition hover:bg-cyan-300 hover:text-slate-950">
+            {recruiterMode ? "Standard" : "Recruiter"}
+          </button>
         </header>
+
+        {recruiterMode && (
+          <section className="reveal-up delay-2 mb-5 rounded-3xl border border-cyan-200/30 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Recruiter Snapshot</p>
+            <p className="mt-3 text-sm leading-6 text-slate-200">
+              Early-career cybersecurity candidate focused on hands-on security engineering, SIEM detection practice, cloud/API security support, and clear technical documentation.
+            </p>
+            <div className="mt-4 grid gap-2">
+              {recruiterSignals.map((signal) => (
+                <div key={signal} className="rounded-2xl border border-cyan-200/15 bg-slate-950/45 px-3 py-2 text-sm font-semibold text-slate-100">
+                  {signal}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="reveal-up delay-2 relative overflow-hidden rounded-[2rem] border border-cyan-200/15 bg-slate-900/68 p-6 text-center shadow-2xl shadow-cyan-950/25 backdrop-blur-xl">
           <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
