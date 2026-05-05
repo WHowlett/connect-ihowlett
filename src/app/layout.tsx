@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = "https://connect.ihowlett.com";
+const ogImageUrl = `${siteUrl}/og-image.png?v=2`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -45,10 +46,12 @@ export const metadata: Metadata = {
     siteName: "Wayne Howlett Cybersecurity",
     images: [
       {
-        url: "/og-image.png",
+        url: ogImageUrl,
+        secureUrl: ogImageUrl,
         width: 1200,
         height: 630,
         alt: "Wayne Howlett Cybersecurity Engineer Portfolio and Contact",
+        type: "image/png",
       },
     ],
   },
@@ -57,7 +60,7 @@ export const metadata: Metadata = {
     title: "Wayne Howlett Cybersecurity | Connect",
     description:
       "Cybersecurity portfolio, projects, resume, and contact for Wayne Howlett.",
-    images: ["/og-image.png"],
+    images: [ogImageUrl],
   },
 };
 
