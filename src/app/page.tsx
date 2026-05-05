@@ -89,7 +89,7 @@ export default function Home() {
       </div>
 
       <section className="mx-auto max-w-md">
-        <header className="mb-5 flex items-center justify-between rounded-2xl border border-cyan-200/15 bg-slate-900/55 px-4 py-3 shadow-xl shadow-black/20 backdrop-blur-xl">
+        <header className="mb-5 flex items-center justify-between rounded-2xl border border-cyan-200/15 bg-slate-900/55 px-4 py-3 shadow-xl shadow-black/20 backdrop-blur-xl tap-lift fade-in">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">
               Connect Hub
@@ -106,16 +106,16 @@ export default function Home() {
           </a>
         </header>
 
-        <section className="relative overflow-hidden rounded-[2rem] border border-cyan-200/15 bg-slate-900/68 p-6 text-center shadow-2xl shadow-cyan-950/25 backdrop-blur-xl">
+        <section className="relative overflow-hidden rounded-[2rem] border border-cyan-200/15 bg-slate-900/68 p-6 text-center shadow-2xl shadow-cyan-950/25 backdrop-blur-xl fade-in">
           <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/90 to-transparent" />
-          <div className="absolute -top-24 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-cyan-200/24 blur-2xl" />
-          <div className="absolute left-1/2 top-4 h-32 w-32 -translate-x-1/2 rounded-full bg-white/15 blur-2xl" />
+          <div className="absolute -top-24 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-cyan-200/24 blur-2xl pulse-glow" />
+          <div className="absolute left-1/2 top-4 h-32 w-32 -translate-x-1/2 rounded-full bg-white/15 blur-2xl pulse-glow" />
 
-          <div className="relative mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl border border-cyan-200/30 bg-slate-950/45 p-2 shadow-2xl shadow-cyan-950/40 ring-4 ring-cyan-200/10 backdrop-blur">
+          <div className="relative mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl border border-cyan-200/30 bg-slate-950/45 p-2 shadow-2xl shadow-cyan-950/40 ring-4 ring-cyan-200/10 backdrop-blur float-soft">
             <img src="/icon.png" alt="Wayne Howlett Cybersecurity logo" className="max-h-full max-w-full object-contain" />
           </div>
 
-          <div className="relative mx-auto h-28 w-28 overflow-hidden rounded-3xl border border-cyan-200/50 bg-slate-950 shadow-2xl shadow-cyan-950/40 ring-4 ring-cyan-200/15">
+          <div className="relative mx-auto h-36 w-36 overflow-hidden rounded-[2rem] border border-cyan-200/50 bg-slate-950 shadow-2xl shadow-cyan-950/40 ring-4 ring-cyan-200/15">
             <img src="/profiletemp.jpeg" alt="Wayne Howlett" className="h-full w-full object-cover" />
           </div>
 
@@ -136,7 +136,7 @@ export default function Home() {
           </p>
         </section>
 
-        <section className="mt-5 grid gap-3">
+        <section className="mt-5 grid gap-3 fade-in">
           {primaryLinks.map((link) => {
             const Icon = link.icon;
             return (
@@ -145,7 +145,7 @@ export default function Home() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group flex items-center justify-between rounded-2xl border p-4 text-left shadow-lg shadow-black/10 transition hover:-translate-y-0.5 ${
+                className={`group tap-lift flex items-center justify-between rounded-2xl border p-4 text-left shadow-lg shadow-black/10 transition hover:-translate-y-0.5 ${
                   link.primary
                     ? "border-cyan-200/70 bg-cyan-300 text-slate-950 shadow-cyan-950/40 hover:bg-cyan-200"
                     : "border-cyan-200/10 bg-slate-900/68 backdrop-blur hover:border-cyan-300 hover:bg-slate-900/85"
@@ -166,7 +166,7 @@ export default function Home() {
           })}
         </section>
 
-        <section className="mt-5 rounded-3xl border border-cyan-200/10 bg-slate-900/62 p-5 shadow-lg shadow-black/10 backdrop-blur-xl">
+        <section className="mt-5 rounded-3xl border border-cyan-200/10 bg-slate-900/62 p-5 shadow-lg shadow-black/10 backdrop-blur-xl tap-lift fade-in">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Focus</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {focusAreas.map((f) => (
@@ -177,7 +177,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mt-5 rounded-3xl border border-cyan-200/30 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl">
+        <section className="mt-5 rounded-3xl border border-cyan-200/30 bg-cyan-200/10 p-5 shadow-lg shadow-cyan-950/10 backdrop-blur-xl tap-lift fade-in">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Open To</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {openRoles.map((role) => (
@@ -188,34 +188,34 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mt-5 grid grid-cols-2 gap-3">
+        <section className="mt-5 grid grid-cols-2 gap-3 fade-in">
           {socialLinks.map((s) => (
             <a
               key={s.title}
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-2xl border border-cyan-200/10 bg-slate-900/68 p-3 text-center text-sm font-semibold text-slate-100 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-200"
+              className="tap-lift rounded-2xl border border-cyan-200/10 bg-slate-900/68 p-3 text-center text-sm font-semibold text-slate-100 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:border-cyan-300 hover:text-cyan-200"
             >
               {s.title}
             </a>
           ))}
         </section>
 
-        <section className="mt-5 grid grid-cols-2 gap-3">
-          <button onClick={handleShare} className="flex items-center justify-center gap-2 rounded-2xl bg-cyan-300 py-3 font-bold text-slate-950 shadow-lg shadow-cyan-950/40 transition hover:-translate-y-0.5 hover:bg-cyan-200">
+        <section className="mt-5 grid grid-cols-2 gap-3 fade-in">
+          <button onClick={handleShare} className="tap-lift flex items-center justify-center gap-2 rounded-2xl bg-cyan-300 py-3 font-bold text-slate-950 shadow-lg shadow-cyan-950/40 transition hover:-translate-y-0.5 hover:bg-cyan-200">
             <Share2 className="h-4 w-4" /> Share
           </button>
-          <a href="/wayne-howlett.vcf" className="flex items-center justify-center gap-2 rounded-2xl border border-cyan-300 py-3 text-center font-bold text-cyan-200 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:bg-cyan-200/10">
+          <a href="/wayne-howlett.vcf" className="tap-lift flex items-center justify-center gap-2 rounded-2xl border border-cyan-300 py-3 text-center font-bold text-cyan-200 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:bg-cyan-200/10">
             <Download className="h-4 w-4" /> Save
           </a>
         </section>
 
-        <a href="mailto:wayne@ihowlett.com" className="mt-5 flex items-center justify-center gap-2 rounded-2xl border border-cyan-200/10 bg-slate-900/62 px-4 py-4 text-sm font-semibold text-slate-200 shadow-lg shadow-black/10 backdrop-blur-xl transition hover:border-cyan-300 hover:text-cyan-200">
+        <a href="mailto:wayne@ihowlett.com" className="tap-lift mt-5 flex items-center justify-center gap-2 rounded-2xl border border-cyan-200/10 bg-slate-900/62 px-4 py-4 text-sm font-semibold text-slate-200 shadow-lg shadow-black/10 backdrop-blur-xl transition hover:border-cyan-300 hover:text-cyan-200">
           <Mail className="h-4 w-4" /> wayne@ihowlett.com
         </a>
 
-        <footer className="mt-6 rounded-2xl border border-cyan-200/10 bg-slate-900/50 px-4 py-5 text-center text-xs leading-5 text-slate-400 shadow-lg shadow-black/10 backdrop-blur-xl">
+        <footer className="mt-6 rounded-2xl border border-cyan-200/10 bg-slate-900/50 px-4 py-5 text-center text-xs leading-5 text-slate-400 shadow-lg shadow-black/10 backdrop-blur-xl fade-in">
           <p className="font-semibold text-slate-200">Wayne Howlett Cybersecurity</p>
           <p className="mt-1">Built for QR scans, quick sharing, and professional connection.</p>
           <p className="mt-2 text-[11px] text-slate-500">© 2026 Wayne Howlett</p>
