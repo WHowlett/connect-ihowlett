@@ -25,16 +25,75 @@ body {
 }
 
 .fade-in {
-  animation: fadeIn 0.6s ease forwards;
+  animation: fadeIn 0.65s ease forwards;
+}
+
+.float-soft {
+  animation: floatSoft 5.5s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulseGlow 4.5s ease-in-out infinite;
+}
+
+.tap-lift {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.tap-lift:hover {
+  transform: translateY(-2px);
+}
+
+.tap-lift:active {
+  transform: translateY(0) scale(0.985);
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes floatSoft {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.62;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .float-soft,
+  .pulse-glow {
+    animation: none;
+  }
+
+  .tap-lift,
+  .tap-lift:hover,
+  .tap-lift:active {
+    transition: none;
+    transform: none;
   }
 }
