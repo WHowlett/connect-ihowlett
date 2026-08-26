@@ -13,21 +13,21 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = "https://connect.ihowlett.com";
-const ogImageUrl = `${siteUrl}/og-image.png?v=2`;
+const ogImageUrl = `${siteUrl}/og-image.png?v=3`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Wayne Howlett Cybersecurity | Connect",
+  title: "Wayne Howlett | Support, Cybersecurity & Technology",
   description:
-    "Quick access to Wayne Howlett’s cybersecurity portfolio, projects, resume, and contact.",
+    "Connect with Wayne Howlett for technical support, networking, cybersecurity and security monitoring, cloud/systems, current resume, portfolio, and email/text contact.",
   keywords: [
     "Wayne Howlett",
+    "technical support",
+    "networking",
     "cybersecurity",
-    "security engineering",
-    "SOC analyst",
-    "detection engineering",
-    "Wazuh SIEM",
-    "cloud security",
+    "security monitoring",
+    "cloud systems",
+    "IT support",
     "API security",
   ],
   authors: [{ name: "Wayne Howlett", url: "https://www.ihowlett.com" }],
@@ -40,26 +40,26 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: siteUrl,
-    title: "Wayne Howlett Cybersecurity | Connect",
+    title: "Wayne Howlett | Support, Cybersecurity & Technology",
     description:
-      "Quick access to Wayne Howlett’s cybersecurity portfolio, projects, resume, and contact.",
-    siteName: "Wayne Howlett Cybersecurity",
+      "Technical support, networking, security monitoring, cloud/systems, current resume, portfolio, and email/text contact for Wayne Howlett.",
+    siteName: "Wayne Howlett | Connect",
     images: [
       {
         url: ogImageUrl,
         secureUrl: ogImageUrl,
         width: 1200,
         height: 630,
-        alt: "Wayne Howlett Cybersecurity Engineer Portfolio and Contact",
+        alt: "Wayne Howlett support and cybersecurity professional profile",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wayne Howlett Cybersecurity | Connect",
+    title: "Wayne Howlett | Support, Cybersecurity & Technology",
     description:
-      "Cybersecurity portfolio, projects, resume, and contact for Wayne Howlett.",
+      "Technical support, networking, cybersecurity, cloud/systems, current resume, portfolio, and email/text contact for Wayne Howlett.",
     images: [ogImageUrl],
   },
 };
