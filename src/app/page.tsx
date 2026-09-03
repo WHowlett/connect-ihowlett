@@ -1158,7 +1158,7 @@ export default function Home() {
   };
 
   return (
-    <main className="site-shell min-h-screen overflow-x-hidden bg-slate-950 text-white">
+    <main className="site-shell bg-slate-950 text-white">
       <div className="site-backdrop" aria-hidden="true" />
       <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-6 px-3 pb-[max(1.5rem,env(safe-area-inset-bottom))] min-[390px]:px-4 sm:px-6 lg:px-8">
         <SiteHeader recruiterMode={recruiterMode} setRecruiterMode={setRecruiterMode} />
