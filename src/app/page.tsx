@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowDownToLine, ArrowUpRight, Code2, Compass,
-  Github, Globe2, Linkedin, Mail, MapPin, MessageSquareText,
+  GitBranch, Globe2, Link2, Mail, MapPin, MessageSquareText,
   Minus, Plus, RotateCcw, ShieldCheck, X
 } from "lucide-react";
 
@@ -14,8 +14,8 @@ type Destination = {
 };
 const destinations: Destination[] = [
   { id:"portfolio", title:"Portfolio", eyebrow:"EXPLORE", description:"Discover my engineering, security, cloud, and development work.",x:206,y:165,tone:"aqua",href:"https://www.ihowlett.com",icon:Globe2 },
-  { id:"github",title:"GitHub",eyebrow:"SOURCE CODE",description:"See repositories, experiments, and the code behind my projects.",x:785,y:152,tone:"purple",href:"https://github.com/WHowlett",icon:Github },
-  { id:"linkedin",title:"LinkedIn",eyebrow:"PROFESSIONAL",description:"Connect with me professionally and follow my career journey.",x:865,y:355,tone:"blue",href:"https://www.linkedin.com/in/wayne-howlett/",icon:Linkedin },
+  { id:"github",title:"GitHub",eyebrow:"SOURCE CODE",description:"See repositories, experiments, and the code behind my projects.",x:785,y:152,tone:"purple",href:"https://github.com/WHowlett",icon:GitBranch },
+  { id:"linkedin",title:"LinkedIn",eyebrow:"PROFESSIONAL",description:"Connect with me professionally and follow my career journey.",x:865,y:355,tone:"blue",href:"https://www.linkedin.com/in/wayne-howlett/",icon:Link2 },
   { id:"resume",title:"Resume",eyebrow:"MY EXPERIENCE",description:"View my technical support, cybersecurity, and development experience.",x:762,y:582,tone:"mint",href:"/doc/wayne-howlett-resume.pdf",icon:ArrowDownToLine },
   { id:"contact",title:"Contact",eyebrow:"SAY HELLO",description:"Written communication works best: email or text me directly.",x:212,y:562,tone:"amber",href:"mailto:wayne@ihowlett.com",action:"Email me",icon:Mail },
   { id:"projects",title:"Projects",eyebrow:"SELECTED WORK",description:"Explore hands-on labs, apps, infrastructure, and security projects.",x:107,y:358,tone:"pink",href:"https://www.ihowlett.com/projects",icon:Code2 },
@@ -173,8 +173,8 @@ export default function Home() {
         <div className="quick-title"><span>QUICK ACCESS</span><p>Not into maps? Jump straight to where you need to go.</p></div>
         <div className="quick-links">
           <a href="/doc/wayne-howlett-resume.pdf" target="_blank" rel="noopener noreferrer"><ArrowDownToLine size={17}/> Resume</a>
-          <a href="https://github.com/WHowlett" target="_blank" rel="noopener noreferrer"><Github size={17}/> GitHub</a>
-          <a href="https://www.linkedin.com/in/wayne-howlett/" target="_blank" rel="noopener noreferrer"><Linkedin size={17}/> LinkedIn</a>
+          <a href="https://github.com/WHowlett" target="_blank" rel="noopener noreferrer"><GitBranch size={17}/> GitHub</a>
+          <a href="https://www.linkedin.com/in/wayne-howlett/" target="_blank" rel="noopener noreferrer"><Link2 size={17}/> LinkedIn</a>
           <a href="mailto:wayne@ihowlett.com"><Mail size={17}/> Email</a>
           <a href="sms:+19832176195"><MessageSquareText size={17}/> Text</a>
         </div>
