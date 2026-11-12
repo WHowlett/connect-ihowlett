@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  ArrowDownToLine, ArrowUpRight, BriefcaseBusiness, Code2, Compass,
+  ArrowDownToLine, ArrowUpRight, Code2, Compass,
   Github, Globe2, Linkedin, Mail, MapPin, MessageSquareText,
-  Minus, Plus, RotateCcw, Search, ShieldCheck, X
+  Minus, Plus, RotateCcw, ShieldCheck, X
 } from "lucide-react";
 
 type Destination = {
@@ -138,7 +138,7 @@ export default function Home() {
           <div className="map-stage" style={{transform:"translate(calc(-50% + "+view.x+"px),calc(-50% + "+view.y+"px)) scale("+view.zoom+")"}}>
             <svg className="links-layer" viewBox="0 0 1000 700" aria-hidden="true">
               <defs><linearGradient id="path-grad"><stop offset="0%" stopColor="#4de3d2" stopOpacity=".62"/><stop offset="100%" stopColor="#9681ff" stopOpacity=".46"/></linearGradient></defs>
-              {destinations.map(d=><g key={d.id}><path d={"M 500 355 Q "+((500+d.x)/2+((d.y-355)*.12))+" "+((355+d.y)/2-28)+" "+d.x+" "+d.y} fill="none" stroke="url(#path-grad)" strokeWidth={selected===d.id?2.5:1.4} strokeDasharray={selected===d.id?"none":"5 8"} opacity={selected&&selected!==d.id?.35:1}/><circle cx={d.x} cy={d.y} r="3" fill="#7fe9ea"/></g>)}
+              {destinations.map(d=><g key={d.id}><path d={"M 500 355 Q "+((500+d.x)/2+((d.y-355)*.12))+" "+((355+d.y)/2-28)+" "+d.x+" "+d.y} fill="none" stroke="url(#path-grad)" strokeWidth={selected===d.id?2.5:1.4} strokeDasharray={selected===d.id?"none":"5 8"} opacity={selected && selected !== d.id ? .35 : 1}/><circle cx={d.x} cy={d.y} r="3" fill="#7fe9ea"/></g>)}
               <circle cx="500" cy="355" r="167" fill="none" stroke="currentColor" strokeOpacity=".12" strokeDasharray="3 12"/>
               <circle cx="500" cy="355" r="235" fill="none" stroke="currentColor" strokeOpacity=".07"/>
               <circle cx="500" cy="355" r="290" fill="none" stroke="currentColor" strokeOpacity=".05"/>
