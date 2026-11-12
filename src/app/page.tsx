@@ -5,7 +5,7 @@ import type { PointerEvent as ReactPointerEvent, WheelEvent as ReactWheelEvent }
 import {
   ArrowDownToLine, ArrowLeft, ArrowUpRight, Code2, Compass, Crosshair,
   GitBranch, Globe2, Link2, Mail, Maximize2, MessageSquareText,
-  Minus, Moon, Network, Plus, RotateCcw, ShieldCheck, Sun, X
+  Minus, Moon, Network, Plus, ShieldCheck, Sun, X
 } from "lucide-react";
 
 type Destination = {
@@ -80,7 +80,7 @@ const destinations: Destination[] = [
 
 type View = { zoom: number; x: number; y: number };
 type Point = { x: number; y: number };
-const scaleFor = (w: number) => (w < 680 ? 0.75 : w < 1100 ? 0.73 : 0.87);
+const scaleFor = (w: number) => (w < 680 ? 0.54 : w < 1100 ? 0.73 : 0.87);
 const pointFor = (item: Destination, mobile: boolean) => {
   const [x, y] = mobile ? item.mobile : item.desktop;
   return { x, y };
@@ -97,10 +97,13 @@ export default function Home() {
   const [view, setView] = useState<View>({ zoom: 0.87, x: 0, y: 0 });
   const [selected, setSelected] = useState<string | null>(null);
   const [light, setLight] = useState(false);
-  const [moreInfo, setMoreInfo] = useState(false);
+  const [mobileGuide, setMobileGuide] = useState(false);
+  const dragDistance = useRef(0);
+  const viewRef = useRef(view);
+  viewRef.current = view;
   const mobile = size.width < 680;
   const active = destinations.find((item) => item.id === selected);
-  const semanticDetail = view.zoom >= 0.93;
+  const semanticDetail = view.zoom >= (mobile ? 0.82 : 0.93);
   const deepDetail = view.zoom >= 1.25;
 
   const reset = useCallback(() => {
@@ -137,13 +140,18 @@ export default function Home() {
 
   const focus = (item: Destination) => {
     const target = pointFor(item, mobile);
-    const zoom = Math.max(1.06, view.zoom);
+    const zoom = mobile ? Math.max(0.80, view.zoom) : Math.max(1.06, view.zoom);
     setView({
       zoom,
       x: (HUB.x - target.x) * zoom + (mobile ? 0 : -170),
-      y: (HUB.y - target.y) * zoom + (mobile ? -65 : 0)
+      y: (HUB.y - target.y) * zoom + (mobile ? 48 : 0)
     });
     setSelected(item.id);
+    setMobileGuide(false);
+  };
+  const moveToNext = (step: number) => {
+    const current = destinations.findIndex((d) => d.id === selected);
+    focus(destinations[(current + step + destinations.length) % destinations.length]);
   };
 
   const fitAll = () => {
@@ -163,11 +171,12 @@ export default function Home() {
 
   const onDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
-    if ((event.target as HTMLElement).closest("button,a,[data-no-pan]")) return;
+    if ((event.target as HTMLElement).closest("a,[data-no-pan]")) return;
+    dragDistance.current = 0;
     pointerMap.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
     const all = points();
     startGesture.current = { midpoint: midpoint(all), distance: distance(all), view: { ...view }, moved: false };
-    event.currentTarget.setPointerCapture(event.pointerId);
+    (event.target as HTMLElement).setPointerCapture?.(event.pointerId);
   };
   const onMove = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (!pointerMap.current.has(event.pointerId) || !startGesture.current) return;
@@ -177,6 +186,7 @@ export default function Home() {
     const middle = midpoint(all);
     const deltaX = middle.x - gesture.midpoint.x;
     const deltaY = middle.y - gesture.midpoint.y;
+    dragDistance.current = Math.max(dragDistance.current, Math.hypot(deltaX, deltaY));
     if (Math.hypot(deltaX, deltaY) > 3 || all.length > 1) gesture.moved = true;
     if (all.length < 2) {
       setView({ ...gesture.view, x: gesture.view.x + deltaX, y: gesture.view.y + deltaY });
@@ -200,7 +210,7 @@ export default function Home() {
     pointerMap.current.delete(event.pointerId);
     const all = points();
     startGesture.current = all.length
-      ? { midpoint: midpoint(all), distance: distance(all), view: { ...view }, moved: false }
+      ? { midpoint: midpoint(all), distance: distance(all), view: { ...viewRef.current }, moved: false }
       : null;
   };
   const onWheel = (event: ReactWheelEvent<HTMLDivElement>) => {
@@ -211,7 +221,7 @@ export default function Home() {
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLElement && e.target.closest("input, textarea, select")) return;
-      if (e.key === "Escape") setSelected(null);
+      if (e.key === "Escape") { setSelected(null); setMobileGuide(false); }
       if (e.key === "+" || e.key === "=") { e.preventDefault(); zoomAt(1.18); }
       if (e.key === "-") { e.preventDefault(); zoomAt(1 / 1.18); }
     };
@@ -231,25 +241,16 @@ export default function Home() {
           <svg className="world-connections" viewBox="0 0 2000 1500" aria-hidden="true">
             <defs>
               <linearGradient id="connection-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#4cead9" stopOpacity=".65" />
-                <stop offset="55%" stopColor="#76a5f6" stopOpacity=".35" />
-                <stop offset="100%" stopColor="#bc8cff" stopOpacity=".63" />
+                <stop offset="0%" stopColor="#58decf" stopOpacity=".40"/>
+                <stop offset="100%" stopColor="#8d8cf5" stopOpacity=".18"/>
               </linearGradient>
             </defs>
-            {[250, 430, 630].map((r) => <circle key={r} cx={HUB.x} cy={HUB.y}
-              r={r} fill="none" stroke="currentColor" strokeOpacity={r === 250 ? 0.16 : 0.09}
-              strokeWidth="1" strokeDasharray={r === 630 ? "4 17" : "3 12"} />)}
-            {destinations.map((item) => {
+            {selected && destinations.filter(item => item.id === selected).map(item => {
               const p = pointFor(item, mobile);
-              const xMid = (HUB.x + p.x) / 2;
-              const yMid = (HUB.y + p.y) / 2;
-              return <g key={item.id}>
-                <path d={`M ${HUB.x} ${HUB.y} Q ${xMid + (p.y - HUB.y) * 0.11} ${yMid - (p.x - HUB.x) * 0.07} ${p.x} ${p.y}`}
-                  stroke="url(#connection-gradient)" strokeWidth={selected === item.id ? 3.3 : 1.8}
-                  fill="none" strokeDasharray={selected === item.id ? undefined : "5 13"}
-                  opacity={selected && selected !== item.id ? 0.26 : 1} />
-                <circle cx={p.x} cy={p.y} r={selected === item.id ? 9 : 5} fill="#7be9da" opacity=".75" />
-              </g>;
+              return <path key={item.id}
+                d={`M ${HUB.x} ${HUB.y} Q ${(HUB.x+p.x)/2} ${(HUB.y+p.y)/2-40} ${p.x} ${p.y}`}
+                stroke="url(#connection-gradient)" strokeWidth="2.2" fill="none"
+                strokeLinecap="round" />;
             })}
           </svg>
           <div className="ambient-orbit ambient-orbit-a" aria-hidden="true"/>
@@ -271,10 +272,10 @@ export default function Home() {
             return <button key={item.id} type="button"
               className={`world-node tone-${item.tone} ${selected === item.id ? "selected" : ""} ${semanticDetail ? "expanded" : ""}`}
               style={{ left: p.x, top: p.y }}
-              onClick={() => focus(item)}
+              onClick={() => { if (dragDistance.current < 9) focus(item); }}
               aria-pressed={selected === item.id}
               aria-label={`Explore ${item.title}`}>
-              <span className="node-emblem"><Icon size={29} strokeWidth={1.7}/></span>
+              <span className="node-art" aria-hidden="true"><span className="node-art-shape"/><Icon size={49} strokeWidth={1.3}/></span>
               <span className="node-meta">
                 <span className="node-overline">{item.subtitle}</span>
                 <strong>{item.title}</strong>
@@ -313,9 +314,29 @@ export default function Home() {
 
       <div className="floating-guide" data-no-pan>
         <Compass size={18}/>
-        <span><strong>YOUR WORLD, YOUR ROUTE</strong><small>{mobile ? "Drag to explore · pinch to zoom" : "Drag to explore · scroll to zoom"}</small></span>
+        <span><strong>YOUR WORLD, YOUR ROUTE</strong><small>{mobile ? "Tap Explore for easy navigation" : "Drag to explore · scroll to zoom"}</small></span>
       </div>
 
+      <div className="mobile-explore-actions" data-no-pan>
+        <button className="explore-open" onClick={() => setMobileGuide(!mobileGuide)} aria-expanded={mobileGuide}>
+          <Compass size={18}/> {mobileGuide ? "Close destinations" : "Explore destinations"}
+        </button>
+        <div className="explore-steps">
+          <button onClick={() => moveToNext(-1)} aria-label="Previous destination"><ArrowLeft size={19}/></button>
+          <button onClick={() => moveToNext(1)} aria-label="Next destination"><ArrowUpRight size={19}/></button>
+        </div>
+      </div>
+      {mobileGuide && <nav className="mobile-destination-list" aria-label="Choose a destination" data-no-pan>
+        <div className="mobile-list-top"><strong>WHERE TO?</strong><button onClick={() => setMobileGuide(false)} aria-label="Close destination menu"><X size={20}/></button></div>
+        <div className="mobile-destination-grid">
+          {destinations.map(item => {
+            const Icon = item.icon;
+            return <button key={item.id} onClick={() => focus(item)} className={`mobile-place tone-${item.tone}`}>
+              <Icon size={23}/><span>{item.title}</span><ArrowUpRight size={15}/>
+            </button>;
+          })}
+        </div>
+      </nav>}
       <div className="floating-zoom" data-no-pan>
         <button title="Zoom in" aria-label="Zoom in" onClick={() => zoomAt(1.24)}><Plus size={19}/></button>
         <button title="Zoom out" aria-label="Zoom out" onClick={() => zoomAt(1 / 1.24)}><Minus size={19}/></button>
